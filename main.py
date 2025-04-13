@@ -98,9 +98,9 @@ class GutenbergTXTPlayExtractor:
             lines = [line.strip() for line in webFetchContent.splitlines() if line.strip()]
             gutenbergPrefix = "TheProjectGutenbergeBookof"
             playName = lines[0].replace(" ", "")
+            playName = playName[playName.index(gutenbergPrefix):]
             if playName.startswith(gutenbergPrefix):
-                print("ture")
-                playName = lines[0][len(gutenbergPrefix):]
+                playName = playName[len(gutenbergPrefix):]
             cleanedLines = self.cleanExtractedPlainText(lines)
             processedPlayDict = self.determineFormatOfExtraction(cleanedLines)
             fileName = playName + ".json"
