@@ -87,7 +87,11 @@ class GutenbergTXTPlayExtractor:
     
     def saveToJson(self, dialogueDictionary, jsonOutputFileName):
         outputPath = os.path.join(self.jsonStorageOutputFolderPath, jsonOutputFileName)
-        print(outputPath)
+        # print(outputPath)
+        elementsToDelete = ["ACT I", "Act I", "Act V", "Scene"]
+        keysToDelete = [speaker for speaker in dialogueDictionary if any(speaker.lower().startswith(element.lower()) for element in elementsToDelete)]
+        for speakerToDelete in keysToDelete:
+            dialogueDictionary.pop(speakerToDelete)
         with open(outputPath, "w", encoding="utf-8") as jsonStorageSingleFile:
             json.dump(dialogueDictionary, jsonStorageSingleFile, indent=4, ensure_ascii=False)
 
